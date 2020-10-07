@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Tech Review Checklist" />
+    <title>Code Challenge Review Checklist</title>
+    <meta name="next-head-count" content="11" />
+    <style media="print">
+      * {
+        font-family: sans-serif;
+        font-size: 10px;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      @page {
+        size: 210mm 297mm;
+        margin: 10mm; 
+      }
+      .header-box {
+        margin-bottom: 15px;
+      }
+      .header * {
+        font-size: 12px;
+      }
+      .attachment-full,
+      .progress-reset,
+      .progress-print,
+      svg { display: none; }
+      .page-column {
+        float: left;
+        width: 33%;
+      }
+      h2 {
+        margin-top: 10px;
+      }
+      .progress-wrap {
+        margin-top: 15px;
+        padding-top: 15px;
+        clear: both;
+        border-top: 1px solid black;
+        font-weight: bold;
+      }
+    </style>
+    <style media="screen">
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #262d3d;
+        color: #fff;
+        font-family: sans-serif;
+        font-weight: 400;
+        padding-bottom: 40px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      .header {
+        background: #204ecf;
+        height: 72px;
+        padding: 0 16px;
+      }
+      .header .header-box {
+        min-height: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .header-extra {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+      }
+      @media (max-width: 375px) {
+        .header {
+          height: 120px;
+          padding: 0;
+        }
+        .header .header-box {
+          justify-content: center;
+        }
+      }
+      .header-logo {
+        display: flex;
+        align-items: center;
+      }
+      .header-logo > a {
+        height: 30px;
+        margin-right: 8px;
+      }
+      .header-logo h1 {
+        font-size: 17px;
+        font-weight: 600;
+        line-height: 28px;
+        border-left: 1px solid #fff;
+        padding-left: 16px;
+      }
+      @media (max-width: 375px) {
+        .header-logo {
+          flex-direction: column;
+        }
+        .header-logo h1 {
+          border: none;
+          line-height: 17px;
+          padding: 0;
+        }
+      }
+      .checkbox-wrap {
+        margin-right: 8px;
+        position: relative;
+        border: 1px solid #c4c6ca;
+        height: 20px;
+        width: 20px;
+      }
+      .checkbox-wrap .checkbox-icon:focus,
+      .checkbox-wrap:focus-within .checkbox-icon {
+        box-shadow: 0 0 1px 1px #25a9ef;
+      }
+      .checkbox-wrap.checkbox-item-green {
+        border-color: #00cc83;
+      }
+      .checkbox-wrap.checkbox-item-green,
+      .checkbox-wrap.checkbox-item-green .checkbox-icon {
+        color: #fff;
+        background: #00cc83;
+      }
+      .checkbox-wrap input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        background: 0 0;
+      }
+      .checkbox-wrap .checkbox-icon {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: #262d3d;
+        color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .check-item {
+        white-space: nowrap;
+        padding-bottom: 8px;
+        display: flex;
+        align-items: center;
+      }
+      .check-item label {
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        color: #fff;
+        line-height: 20px;
+        display: flex;
+        align-items: center;
+      }
+      .check-item label:hover span {
+        background: hsla(0, 0%, 100%, 0.32);
+      }
+      .check-item.checkbox-box-green > .arrow-icon {
+        color: #00cc83;
+      }
+      .check-item.checkbox-box-green label {
+        color: #00cc83;
+        text-decoration: line-through;
+      }
+      .checklist-item {
+        padding-bottom: 12px;
+      }
+      .checklist-item .arrow-icon {
+        color: #25a9ef;
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        -webkit-transition: -webkit-transform 0.3s ease-in-out;
+        transition: -webkit-transform 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out,
+          -webkit-transform 0.3s ease-in-out;
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+      }
+      .checklist-item.item-closed {
+        padding-bottom: 4px;
+      }
+      .checklist-item.item-closed .resource-box {
+        max-height: 0;
+        overflow: hidden;
+        -webkit-transition-duration: 0.1s;
+        transition-duration: 0.1s;
+        -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+        transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+      }
+      .checklist-item.box-open .arrow-icon {
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+      }
+      .checklist-item.box-open .resource-box {
+        max-height: 100vh;
+        overflow: hidden;
+        -webkit-transition-duration: 0.5s;
+        transition-duration: 0.5s;
+        -webkit-transition-timing-function: ease-in;
+        transition-timing-function: ease-in;
+      }
+      .category {
+        margin: 20px 0;
+      }
+      .category:first-child {
+        margin-top: 0;
+      }
+      .category h2 {
+        font-weight: 600;
+        font-size: 22px;
+        line-height: 22px;
+        margin-bottom: 16px;
+        white-space: nowrap;
+      }
+      .category h3 {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 16px;
+        margin: 16px 0;
+      }
+      .progress-wrap {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        height: 30px;
+        z-index: 1000;
+        background: #474d5a;
+      }
+      .progress-bar {
+        position: absolute;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        z-index: 1001;
+        -webkit-transition: all 0.4s ease-out;
+        transition: all 0.4s ease-out;
+      }
+      .progress-bar.progress-yellow {
+        background: #e59c01;
+      }
+      .progress-bar.progress-green {
+        background: #00cc83;
+      }
+      .progress-bar.progress-red {
+        background: #d42551;
+      }
+      .progress-counter {
+        position: absolute;
+        right: 10%;
+        line-height: 30px;
+        z-index: 1002;
+        color: #fff;
+        font-size: 13px;
+        -webkit-font-feature-settings: "tnum";
+        font-feature-settings: "tnum";
+        font-variant-numeric: tabular-nums;
+      }
+      .progress-counter .progress-reset {
+        color: #00cc83;
+        background: 0 0;
+        border: 0;
+        cursor: pointer;
+        font-size: 10px;
+        border: 1px solid #00cc83;
+        padding: 2px 4px;
+      }
+      .progress-counter .progress-print {
+        color: #e59c01;
+        background: 0 0;
+        border: 0;
+        cursor: pointer;
+        font-size: 10px;
+        border: 1px solid #e59c01;
+        padding: 2px 4px;
+      }
+      @media (max-width: 425px) {
+        .progress-counter {
+          position: inherit;
+          width: 100%;
+          right: 0;
+          display: flex;
+          justify-content: center;
+          align-items: baseline;
+        }
+      }
+      .content {
+        max-width: 1280px;
+        margin: 48px auto 0;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+      }
+      .content:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      .page-column {
+        width: 350px;
+        margin: 0 10px;
+      }
+      @media (max-width: 1280px) {
+        .content {
+          display: block;
+          max-width: 800px;
+        }
+        .page-column {
+          width: 380px;
+        }
+        .page-column:nth-child(odd) {
+          float: left;
+        }
+        .page-column:nth-child(2n) {
+          float: right;
+        }
+      }
+      @media (max-width: 800px) {
+        .content {
+          max-width: 640px;
+        }
+        .page-column {
+          max-width: 300px;
+        }
+      }
+      @media (max-width: 660px) {
+        .page-column {
+          float: none !important;
+          margin: 0 auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="https://github.com/fabiocicerchia/tech-test-checklist" style="position: absolute;right: 0;"><img loading="lazy" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_white_ffffff.png?resize=149%2C149" width="149" height="149"></a>
+    <div id="__next">
+      <div class="header">
+        <div class="header-box">
+          <div class="header-logo">
+            <h1>Code Challenge Review Checklist</h1>
+          </div>
+          <div class="header-extra">Opinionated Checklist for Reviewing a Code Challenge</div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="page-column">
+          <div class="category">
+            <h2>Algorithm</h2>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  BigO
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Recursive Approach
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Covers edge cases
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Example provided matches
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Return values matches
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="category">
+            <h2>Clean Code</h2>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Production ready
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No dead code
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No commented code
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Namespace usage
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No global variables
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Correct visibility modifiers
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No duplicated code
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No empty blocks
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Correct data types or structures
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Design patterns
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No mixed tabs vs spaces
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No Getters & Setters
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Use Exceptions rather than return codes
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Don't return null
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Make class final if not being used for inheritance
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Dependency Injection
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No Dependency Cycles
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="category">
+            <h2>Coding Style</h2>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Code linted
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Respecting community standards
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No issue phpcbf
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No issue php-cs-fixer
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Folder structure
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No debug code
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="category">
+            <h2>Complexity</h2>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No complex expressions
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No bitwise operations
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No magic variables
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No magic values
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No magic methods
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Law of Demeter
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No over engineered
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-column">
+          <div class="category">
+            <h2>Documentation</h2>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  DocBlocks
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  README file
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Usage
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Code readability
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  CLI help
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No TODOs
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No HACKs
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Logs
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Unusual behaviour is commented
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  UML
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="category">
+            <h2>Environment</h2>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Dockerized
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Docker-compose
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  .env file
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="category">
+            <h2>i18n</h2>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Translations
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="category">
+            <h2>Language</h2>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Package manager
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Version within EOL
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Using most recent version
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="category">
+            <h2>Paradigms</h2>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  DRY
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  GRASP
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Quick & dirty
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  SOLID
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  OOP
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="category">
+            <h2>Performance</h2>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Speed
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Number of loops
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="category">
+            <h2>Presentation</h2>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Color shell
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-column">
+          <div class="category">
+            <h2>Readability</h2>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Variables names
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Spelling
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No double negations
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No nested if, for, ...
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="category">
+            <h2>Security</h2>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No Buffer overflow
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No Freezing (infinite loop, memory leaks)
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No stacktraces
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Immutable variables
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Exceptions catching
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Closing resources (files, streams, ...)
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Input validation
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No deprecates
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No warnings
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  No eval
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="category">
+            <h2>Tests</h2>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Unit tests
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Functional tests
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Coverage > 80%
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  CI/CD tools
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="category">
+            <h2>Versioning</h2>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Git repo
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Many small commits
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  Good commit messages
+                </label>
+              </div>
+            </div>
+            <div class="checklist-item item-closed">
+              <div class="check-item">
+                <label>
+                  <span class="checkbox-wrap">
+                    <span class="checkbox-icon">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                      </svg>
+                    </span>
+                    <input type="checkbox" />
+                  </span>
+                  .gitignore
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-bar progress-red" style="width: 0%"></div>
+          <div class="progress-counter">
+            <span>Score: 0/82 (0%)</span>
+            <button type="button" class="progress-reset">Reset</button>
+            <button type="button" class="progress-print">Print</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    function enableCheckbox(element) {
+      element.checked = true;
+      element.parentNode.classList.add("checkbox-item-green");
+      element.parentNode.parentNode.parentNode.classList.add("checkbox-box-green");
+      counterTotal++;
+      counterOptional++;
+    }
+    function disableCheckbox(element) {
+      element.checked = false;
+      element.parentNode.classList.remove("checkbox-item-green");
+      element.parentNode.parentNode.parentNode.classList.remove("checkbox-box-green");
+      counterTotal--;
+      counterOptional--;
+    }
+    function handleCheckbox(element) {
+      checkbox = element.nextElementSibling || element.nextSibling;
+      if (checkbox.checked) {
+        disableCheckbox(element);
+      } else {
+        enableCheckbox(element);
+      }
+    }
+    totalItems = document.querySelectorAll(".check-item").length;
+    counterTotal = 0;
+    counterOptional = 0;
+    document.querySelectorAll(".check-item").forEach((element) => {
+      element.addEventListener("click", function (e) {
+        e.preventDefault();
+        handleCheckbox(this.querySelector("label span input"));
+        updateProgress();
+      });
+    });
+    function updateProgress() {
+      perc = Math.ceil((100 / totalItems) * counterTotal);
+      document.querySelector(".progress-counter span").innerHTML = "Score: " + counterTotal + "/" + totalItems + " (" + perc + "%)";
+      document.querySelector(".progress-wrap .progress-bar").style.width = perc + "%";
+      if (perc > 99) {
+        document.querySelector(".progress-wrap .progress-bar")
+          .classList.remove("progress-red");
+        document.querySelector(".progress-wrap .progress-bar")
+          .classList.remove("progress-yellow");
+        document.querySelector(".progress-wrap .progress-bar")
+          .classList.add("progress-green");
+      } else if (perc > 40) {
+        document.querySelector(".progress-wrap .progress-bar")
+          .classList.remove("progress-red");
+        document.querySelector(".progress-wrap .progress-bar")
+          .classList.add("progress-yellow");
+        document.querySelector(".progress-wrap .progress-bar")
+          .classList.remove("progress-green");
+      } else {
+        document.querySelector(".progress-wrap .progress-bar")
+          .classList.add("progress-red");
+        document.querySelector(".progress-wrap .progress-bar")
+          .classList.remove("progress-yellow");
+        document.querySelector(".progress-wrap .progress-bar")
+          .classList.remove("progress-green");
+      }
+    }
+    document.querySelectorAll(".arrow-icon").forEach((element) => {
+      element.addEventListener("click", function (e) {
+        e.preventDefault();
+        this.parentNode.parentNode.classList.toggle("box-open");
+      });
+    });
+    document.querySelector(".progress-reset").addEventListener("click", function (e) {
+      e.preventDefault();
+      document.querySelectorAll(".checkbox-icon").forEach((element) => {
+        disableCheckbox(element);
+      });
+      counterTotal = 0;
+      counterOptional = 0;
+      updateProgress();
+    });
+    document.querySelector(".progress-print").addEventListener("click", function (e) {
+      e.preventDefault();
+      window.print();
+    });
+    updateProgress();
+  </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-439670-17"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-439670-17');
+  </script>
+</html>
